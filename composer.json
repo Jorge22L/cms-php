@@ -1,0 +1,28 @@
+{
+    "name": "app/cms-php",
+    "description": "Sistema gestor de contenido con php",
+    "type": "project",
+    
+    "autoload": {
+        "psr-4": {
+            "App\\CmsPhp\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jorge"
+        }
+    ],
+    "require": {
+        "php": ">= 7.4",
+        "ext-pdo": "*",
+        "ext-gd": "*",
+        "erusev/parsedown": "^1.7"
+    },
+    "require-dev": {
+        "filp/whoops": "^2.14"
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    }
+}
