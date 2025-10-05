@@ -2,7 +2,7 @@
 
 namespace App\CmsPhp\models;
 
-use App\Core\Model;
+use App\CmsPhp\core\Model;
 use PDO;
 
 class Comment extends Model{

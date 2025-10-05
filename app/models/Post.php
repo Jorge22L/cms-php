@@ -2,10 +2,10 @@
 
 namespace App\CmsPhp\models;
 
-use App\Core\Model;
+use App\CmsPhp\core\Model as CoreModel;
 use PDO;
 
-class Post extends Model{
+class Post extends CoreModel{
     protected $table = "posts";
 
     public $id;
