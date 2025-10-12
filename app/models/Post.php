@@ -24,7 +24,7 @@ class Post extends CoreModel{
     }
 
     public function create(){
-        $query = "INSERT INTO $this->table SET title = :title, content = :content, excertp = :excerpt, image = :image, user_id = :user_id, status = :status";
+        $query = "INSERT INTO $this->table SET title = :title, content = :content, excerpt = :excerpt, image = :image, user_id = :user_id, status = :status";
 
         $stmt = $this->db->prepare($query);
 
@@ -44,7 +44,7 @@ class Post extends CoreModel{
     }
 
     public function update(){
-        $query = "UPDATE $this->table SET title = :title, content = :content, excertp = :excertp, image = :image, user_id = :user_id, status = :status, updated_at=NOW() WHERE id = :id";
+        $query = "UPDATE $this->table SET title = :title, content = :content, excerpt = :excerpt, image = :image, user_id = :user_id, status = :status, updated_at=NOW() WHERE id = :id";
 
         $stmt = $this->db->prepare($query);
 

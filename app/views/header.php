@@ -10,6 +10,7 @@
 
             echo isset($pageTitle) ? $pageTitle . '- CMS' : 'CMS'; ?></title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/quill.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 

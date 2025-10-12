@@ -40,7 +40,7 @@ class Comment extends Model{
 
     public function getByPost($post_id)
     {
-        $query = "SELECT c.*, u.sername FROM $this->table c LEFT JOIN users u on c.user_id = u.id WHERE c.post_id = :post_id AND c.status = 'approved' ORDER BY c.created_at DESC";
+        $query = "SELECT c.*, u.username FROM $this->table c LEFT JOIN users u on c.user_id = u.id WHERE c.post_id = :post_id AND c.status = 'approved' ORDER BY c.created_at DESC";
 
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(":post_id", $post_id);

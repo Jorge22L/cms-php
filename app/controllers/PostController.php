@@ -62,4 +62,5 @@ class PostController {
         $post = new Post($this->db);
         return $post->delete($id);
     }
+
 }
