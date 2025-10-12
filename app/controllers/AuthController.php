@@ -1,4 +1,5 @@
 <?php
+
 namespace App\CmsPhp\controllers;
 
 use App\CmsPhp\Models\User;
@@ -11,16 +12,17 @@ class AuthController
     public function __construct($db)
     {
         $this->db = $db;
-        if(session_status() === PHP_SESSION_NONE){
+        if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
     }
 
-    public function login($email, $password){
+    public function login($email, $password)
+    {
         $user = new User($this->db);
         $user->email = $email;
 
-        if($user->emailExists() && password_verify($password, $user->password)){
+        if ($user->emailExists() && password_verify($password, $user->password)) {
             $_SESSION['user_id'] = $user->id;
             $_SESSION['username'] = $user->username;
             $_SESSION['user_role'] = $user->role;
@@ -31,8 +33,9 @@ class AuthController
         return false;
     }
 
-    public function register($username, $email, $password){
-        try{
+    public function register($username, $email, $password)
+    {
+        try {
             $user = new User($this->db);
 
             $user->username = $username;
@@ -40,11 +43,10 @@ class AuthController
             $user->password = $password;
             $user->role = 'user';
 
-            if($user->create()){
+            if ($user->create()) {
                 return true;
             }
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             // Email duplicado
             return false;
         }
@@ -52,26 +54,56 @@ class AuthController
         return false;
     }
 
-    public function isLoggedIn(){
+    public function isLoggedIn()
+    {
         return isset($_SESSION['user_id']);
     }
 
-    public function isAdmin(){
+    public function isAdmin()
+    {
         return isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
     }
 
-    public function isAuthor(){
+    public function isAuthor()
+    {
         return isset($_SESSION['user_role']) && ($_SESSION['user_role'] === 'admin' || $_SESSION['user_role'] === 'author');
     }
 
-    public function logout(){
+    public function logout()
+    {
+        // Iniciar sesión si no está iniciada
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Limpiar todas las variables de sesión
+        $_SESSION = array();
+
+        // Borrar la cookie de sesión
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
+            );
+        }
+
+        // Destruir la sesión
         session_destroy();
-        header("Location: index.php");
-        exit();
+
+        // Redireccionar al login
+        header("Location: login.php");
+        exit;
     }
 
-    public function getCurrentUser(){
-        if($this->isLoggedIn()){
+    public function getCurrentUser()
+    {
+        if ($this->isLoggedIn()) {
             return [
                 'id' => $_SESSION['user_id'],
                 'username' => $_SESSION['username'],
